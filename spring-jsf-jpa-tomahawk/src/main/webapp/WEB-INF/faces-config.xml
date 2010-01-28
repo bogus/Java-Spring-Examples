@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+	version="1.2">
+
+	<application>
+		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+		<variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+	</application>
+
+	<navigation-rule>
+		<from-view-id>/createSong.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>songDetail</from-outcome>
+			<to-view-id>/songDetail.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/songDetail.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>createSong</from-outcome>
+			<to-view-id>/createSong.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+</faces-config>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>client</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.jsp</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:springjsf-context.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>JPA Filter</filter-name>
+		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>JPA Filter</filter-name>
+		<url-pattern>*.jsf</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
+		<filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
+	    <init-param>
+	        <param-name>uploadMaxFileSize</param-name>
+	        <param-value>20m</param-value>
+	        <description>Set the size limit for uploaded files.
+	            Format: 10 - 10 bytes
+	                    10k - 10 KB
+	                    10m - 10 MB
+	                    1g - 1 GB
+	        </description>
+	    </init-param>
+	</filter>
+	
+	<!-- extension mapping for adding <script/>, <link/>, and other resource tags to JSF-pages  -->
+	<filter-mapping>
+	    <filter-name>MyFacesExtensionsFilter</filter-name>
+	    <!-- servlet-name must match the name of your javax.faces.webapp.FacesServlet entry -->
+	    <servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+	
+	<!-- extension mapping for serving page-independent resources (javascript, stylesheets, images, etc.)  -->
+	<filter-mapping>
+	    <filter-name>MyFacesExtensionsFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+</web-app>
